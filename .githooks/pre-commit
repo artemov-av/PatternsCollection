@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+
+import glob
+import pylint.lint
+import sys
+
+score = pylint.lint.Run(glob.glob('**/*.py', recursive=True), do_exit=False).linter.stats['global_note']
+threshold = 9.0
+
+if score < threshold:
+    print("Pylint score is {}, while threshold is {}. Unable to commit.".format(score, threshold), file=sys.stderr)
+    exit(1)
